@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import AmapVue from '@amap/amap-vue'
+import Echarts from 'echarts'
 
 AmapVue.config.version = '2.0' // 默认2.0，这里可以不修改
 AmapVue.config.key = 'f5b8a936813a3659a8ef7f9cb35da460'
@@ -14,6 +15,8 @@ AmapVue.config.plugins = [
 ]
 Vue.use(AmapVue)
 Vue.config.productionTip = false
+Vue.use(Echarts)
+Vue.prototype.$echarts = Echarts
 
 /* eslint-disable no-new */
 new Vue({

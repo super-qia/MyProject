@@ -10,53 +10,45 @@
           <div class="col col-l">
             <div class="xpanel-wrapper xpanel-wrapper-40">
               <div class="xpanel xpanel-l-t">
-                <div class="title">1</div>
-                123
+                <div class="title">折线图</div>
+                <!-- 折线图 -->
+                <line-chart />
               </div>
             </div>
             <div class="xpanel-wrapper xpanel-wrapper-60">
               <div class="xpanel xpanel-l-b">
-                <div class="title">2</div>
-                123
+                <div class="title">停车场库车次流水统计</div>
+                <!-- 平滑折线面积图 -->
+                <area-graph />
               </div>
             </div>
           </div>
           <div class="col col-c">
             <div class="xpanel-wrapper xpanel-wrapper-75">
               <div class="xpanel no-bg">
-                <amap :zoom="15" :center="position" cache-key="home-map"
-                  map-style="amap://styles/296109f9239f716f074bc2f4d19d1a47">
-                  <amap-marker :position="position" :label="{
-                    content: '普通坐标点',
-                    direction: 'bottom',
-                  }" draggable />
-                  <amap-marker :position="position" :offset="[-22, -40]" :label="{
-                    content: '使用自定义Icon的Marker',
-                    direction: 'bottom',
-                  }" :icon="markerIcon" />
-                </amap>
+                <!-- 高德地图 -->
+                <gd-map />
               </div>
             </div>
-            <!-- <div class="xpanel-wrapper xpanel-wrapper-25">
-              <div class="xpanel xpanel-c-b">
-                <div class="title title-long">4</div>
-              </div>
-            </div> -->
           </div>
           <div class="col col-r">
             <div class="xpanel-wrapper xpanel-wrapper-25">
               <div class="xpanel xpanel-r-t">
-                <div class="title">5</div>
+                <div class="title">柱状图</div>
+                <!-- 柱状图 -->
+                <bar-graph />
               </div>
             </div>
             <div class="xpanel-wrapper xpanel-wrapper-30">
               <div class="xpanel xpanel-r-m">
-                <div class="title">6</div>
+                <div class="title">国内院士前五省份图示</div>
+                <pie-graph />
               </div>
             </div>
             <div class="xpanel-wrapper xpanel-wrapper-45">
               <div class="xpanel xpanel-r-b">
-                <div class="title">7</div>
+                <div class="title">耗材量</div>
+                <move-list />
               </div>
             </div>
           </div>
@@ -99,14 +91,27 @@
 </template>
 
 <script>
+import {
+  gdMap,
+  lineChart,
+  areaGraph,
+  barGraph,
+  pieGraph,
+  moveList,
+} from "./viewComponents"
 export default {
   name: 'NewEnergyCar',
+  // 组件
+  components: {
+    gdMap,
+    lineChart,
+    areaGraph,
+    barGraph,
+    pieGraph,
+    moveList,
+  },
   data() {
     return {
-      // 坐标点经纬度
-      position: [113.397181, 22.528115],
-      // 坐标点样式
-      markerIcon: '',
       // 当前时间
       date: new Date(),
       // 左边tab栏
@@ -120,10 +125,12 @@ export default {
         { title: '0', desc: '右边第一', style: false },
         { title: '1', desc: '右边第二', style: false },
         { title: '2', desc: '右边第三', style: false }
-      ]
+      ],
     }
   },
+
   created() { },
+
   methods: {
     // 显示当前时间
     dateFormat(time) {
@@ -166,12 +173,12 @@ export default {
         this_.rightTabList[i].style = false
       }
       this.rightTabList[title].style = true
-    }
+    },
   },
 
   mounted() {
-    //显示当前日期时间
-    let this_ = this// 声明一个变量指向Vue实例this，保证作用域一致
+    // 显示当前日期时间
+    let this_ = this // 声明一个变量指向Vue实例this，保证作用域一致
     this.timer = setInterval(() => {
       this_.date = new Date(); // 修改数据date
     }, 1000)
@@ -228,7 +235,7 @@ export default {
   /* 垂直居中关键 */
   line-height: 40px;
   font-size: 20px;
-  color: rgba(187, 255, 255);
+  color: #00c7da;
 }
 
 .tabLeft {
